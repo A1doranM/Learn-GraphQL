@@ -23,6 +23,11 @@ const Root: React.FC = () => {
     <ApolloProvider client={ client }>
       <Router>
         <Switch>
+          <Route path="/signup">
+            <App>
+              <LoginForm/>
+            </App>
+          </Route>
           <Route path="/login">
             <App>
               <LoginForm/>

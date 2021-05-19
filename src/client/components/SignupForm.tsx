@@ -3,30 +3,28 @@ import gql from 'graphql-tag';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthForm from './AuthForm';
-import { getCurrentUser } from './Header';
 
-const loginMutation = gql`
-    mutation Login($email: String, $password: String){
-        login(email: $email, password: $password){
+const signupMutation = gql`
+    mutation Signup($email: String, $password: String){
+        signup(email: $email, password: $password){
             id
             email
         }
     }
 `;
 
-const LoginForm: React.FC = (props) => {
-  type loginData = { id: string, email: string };
-  type loginParams = { email: string, password: string };
-  const [login, result] = useMutation<loginData, loginParams>(loginMutation);
+const SignupForm: React.FC = (props) => {
+  type signUpData = { id: string, email: string };
+  type signupParams = { email: string, password: string };
+  const [signup, result] = useMutation<signUpData, signupParams>(signupMutation);
   const history = useHistory();
 
   const onSubmit = ({ email, password }) => {
-    login({
+    signup({
       variables: {
         email: email,
         password: password,
       },
-      refetchQueries: [{ query: getCurrentUser }]
     }).then(_ => history.push('/'))
       .catch((e) => {
         console.log('ERROR IN LOGIN: ', e);
@@ -35,10 +33,10 @@ const LoginForm: React.FC = (props) => {
 
   return (
     <div>
-      <h3>Login</h3>
+      <h3>SignUp</h3>
       <AuthForm onSubmit={ onSubmit }/>
     </div>
   );
 }
 
-export default LoginForm;
+export default SignupForm;

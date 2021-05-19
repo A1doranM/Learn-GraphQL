@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import * as React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-const getCurrentUser = gql`
+export const getCurrentUser = gql`
     {
         user{
             id
@@ -38,12 +38,10 @@ const Header: React.FC = (props) => {
   }
 
   const renderButtons = () => {
-    console.log(loading, data);
 
     if (loading) return;
 
     if (data.user) {
-      console.log('test');
       return (
         <li>
           <a href="#" onClick={ onLogout }>Logout</a>
